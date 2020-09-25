@@ -1,44 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+typescript react에서 redux사용하기
 
-## Available Scripts
+- ducks pattern으로 redux 구조를 짬
+1. 액션타입, 액션생성함수, 리듀서함수를 한파일에 작성
+2. 리듀서함수는 export default로 내보냄
+3. 액션생성함수는 export 로 내보냄
+4. 액션타입의 이름은 파일이름/액션이름으로
 
-In the project directory, you can run:
+type ActionType =
+  | ReturnType<typeof increaseAction>
+  | ReturnType<typeof decreaseAction>
+  | ReturnType<typeof increaseByAction>;
+  
+  액션생성함수의 ReturnType으로 ActionType Type Alias를 지정
+  이는 해당 리듀서함수의 액션의 타입을 지정하기 위함.
+  
+  이를 위해서 const assertion으로 액션타입 지정해야함
+  
+  // Actions
+const INCREASE = "count/INCREASE" as const;
+const DECREASE = "count/DECREASE" as const;
+const INCREASEBY = "count/INCREASEBY" as const;
 
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+const assertion을 사용하는 이유는 Action의 타입을 가지고있는 ActionType이 명확한 타입명을 가져아하기 때문.
+cosnt assertion을 사용하지않으면 ReturnType<typeof increaseAction>은 'count/INCREASE'값을 가지는게아닌 string을 가짐. -> 이는 리덕스에서 타입스크립트를 사용할때 적절치 못함
+  
+ 
+rootReducer를 가지고있는 index.ts에서는 rootReducer의 타입을 export해준다. 이유는
+해당 스토어를 구독하고있는 컴포넌트가 useSelector(redux hook)을 통해 state를 받아올 때 rootReducer의 Type을 지정하기 위함
+ex) export type RootReducerType = ReturnType<typeof rootReducer>; 로 rootReducer의 타입을 export하고
+  스토어의 state를 사용하는 컴포넌트에서는
+  const count = useSelector(
+    (state: RootReducerType) => state.countReducer.count);
+  이런식으로 RootReducerType을 지정해준다.
+  그러면 뒤의 코드 state.countReducer.count가 자동완성이 될수있음!.
+  => 타입을 지정해서 자동완성으로 안전성, 편의성 두가지 토끼를 모두잡을수있다.
