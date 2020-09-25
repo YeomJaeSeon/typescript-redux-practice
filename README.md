@@ -6,10 +6,10 @@ typescript react에서 redux사용하기
 3. 액션생성함수는 export 로 내보냄
 4. 액션타입의 이름은 파일이름/액션이름으로
 
-type ActionType =
-  | ReturnType<typeof increaseAction>
-  | ReturnType<typeof decreaseAction>
-  | ReturnType<typeof increaseByAction>;
+  type ActionType =
+    | ReturnType<typeof increaseAction>
+    | ReturnType<typeof decreaseAction>
+    | ReturnType<typeof increaseByAction>;
   
   액션생성함수의 ReturnType으로 ActionType Type Alias를 지정
   이는 해당 리듀서함수의 액션의 타입을 지정하기 위함.
