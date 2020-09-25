@@ -35,7 +35,7 @@ ex) ```export type RootReducerType = ReturnType<typeof rootReducer>;``` 로 root
  ``` 
  const count = useSelector(
     (state: RootReducerType) => state.countReducer.count);
-    ```
+```
   이런식으로 RootReducerType을 지정해준다.
   그러면 뒤의 코드 state.countReducer.count가 자동완성이 될수있음!.
   => 타입을 지정해서 자동완성으로 안전성, 편의성 두가지 토끼를 모두잡을수있다.
