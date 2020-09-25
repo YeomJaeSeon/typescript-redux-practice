@@ -1,4 +1,4 @@
-typescript react에서 redux사용하기
+# typescript react에서 redux사용하기
 
 - ducks pattern으로 redux 구조를 짬
 1. 액션타입, 액션생성함수, 리듀서함수를 한파일에 작성
