@@ -6,20 +6,23 @@ typescript react에서 redux사용하기
 3. 액션생성함수는 export 로 내보냄
 4. 액션타입의 이름은 파일이름/액션이름으로
 
+```
   type ActionType =
     | ReturnType<typeof increaseAction>
     | ReturnType<typeof decreaseAction>
     | ReturnType<typeof increaseByAction>;
-  
+```
+
   액션생성함수의 ReturnType으로 ActionType Type Alias를 지정
   이는 해당 리듀서함수의 액션의 타입을 지정하기 위함.
   
   이를 위해서 const assertion으로 액션타입 지정해야함
-  
+  ```
   // Actions
 const INCREASE = "count/INCREASE" as const;
 const DECREASE = "count/DECREASE" as const;
 const INCREASEBY = "count/INCREASEBY" as const;
+```
 
 const assertion을 사용하는 이유는 Action의 타입을 가지고있는 ActionType이 명확한 타입명을 가져아하기 때문.
 cosnt assertion을 사용하지않으면 ReturnType<typeof increaseAction>은 'count/INCREASE'값을 가지는게아닌 string을 가짐. -> 이는 리덕스에서 타입스크립트를 사용할때 적절치 못함
