@@ -10,9 +10,7 @@ import Counter from "../components/Counter";
 
 export default function CounterContainer() {
   const dispatch = useDispatch();
-  const count = useSelector(
-    (state: RootReducerType) => state.countReducer.count
-  );
+  const count = useSelector((state: RootReducerType) => state.count.count);
 
   const increase = () => {
     dispatch(increaseAction());
@@ -23,6 +21,7 @@ export default function CounterContainer() {
   const increaseBy = (diff: number) => {
     dispatch(increaseByAction(diff));
   };
+
   return (
     <Counter
       count={count}
