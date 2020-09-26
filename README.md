@@ -39,3 +39,7 @@ ex) ```export type RootReducerType = ReturnType<typeof rootReducer>;``` 로 root
   이런식으로 RootReducerType을 지정해준다.
   그러면 뒤의 코드 state.countReducer.count가 자동완성이 될수있음!.
   => 타입을 지정해서 자동완성으로 안전성, 편의성 두가지 토끼를 모두잡을수있다.
+  
+  
+  
+  ### typesafe actions 라이브러리를 이용하면 좀더 간단하게 typescript 에서 redux를 이용할수있지만 이건 필요할떄 다시 공부하자.
